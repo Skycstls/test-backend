@@ -12,10 +12,10 @@ app.get("/imagenes", (req, res) => {
     const ip = req.ip;
     const userAgent = req.get('User-Agent');
     const fecha = new Date().toISOString();
-    const localizacion = geoip.lookup(ip);
+    const localizacion = geoip.lookup(ip)
     const insert = db.prepare("INSERT INTO usuarios (ip, userAgent, localizacion, fecha) VALUES (?, ?, ?, ?)");
     console.log(ip, userAgent, localizacion, fecha);
-    insert.run(ip, userAgent, localizacion, fecha);
+    insert.run(ip, userAgent, localizacion.city, fecha);
     const imagenes = [
         "1.jpeg",
         "2.jpeg",
